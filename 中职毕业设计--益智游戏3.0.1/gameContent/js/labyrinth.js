@@ -1,11 +1,6 @@
 var boxWH =39;
-
- var spt = new Array(2);
- var ept = new Array(2);
  var cpt = new Array(2);
- var entirePoint= [619];
  var wpt;
- var mazearr = ['.'];//存储当前路径，0-4顺时针
  var mazewt = 1;
  var num1 = 1;
  var funcmazes;
@@ -14,6 +9,7 @@ initialCreate(boxWH)
 // document.querySelector("#box").style.height = boxWH * 10 + "px";
 // document.querySelector("#box").style.width = boxWH * 10 + "px";
 function initialCreate(num) {
+	entirePoint= [619];
 	 spt = new Array(2);
 	 ept = new Array(2);
 	 mazearr = ['.']
