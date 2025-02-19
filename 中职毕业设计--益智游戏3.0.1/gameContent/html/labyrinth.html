@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>GAME-labyrinth</title>
+	<link type="text/css" rel="stylesheet" href="../css/labyrinth.css" />
+	<script src="../js/jQuery.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+	<header id="header">
+		<h2>labyrinth-迷宫</h2>
+	</header>
+	<main id="main">
+		<main>
+			<div id="box"></div>
+			<div id="wait">Please Wait A Moment</div>
+		</main>
+		<aside id="aside">
+			<h2>Times</h2>
+			<div class="showDiv">0min(s)|0sec(s)</div>
+			<h2>Steps</h2>
+			<div class="showDiv">0step(s)</div>
+			<div id="admin">
+				<input id="boxWHnum" type="text" placeholder="填个数字">
+				<input id="boxWH" type="button" value="Set" onclick="initialCreate(parseInt(document.querySelector('#boxWHnum').value))">
+				<!-- <div id="boxWH" style="display: inline-block;">Set</div> -->
+				<div id="restare" onclick="restare()">Restare</div>
+				<div id="pause" onclick="pause()">Time Pause</div>
+				<div id="intro" onclick="intro('labyrinth')">Game Intro</div>
+				<div id="back" onclick="back()">Back</div>
+			</div>
+		</aside>
+	</main>
+	<script src="../js/common.js"></script>
+	<script src="../js/labyrinth.js"></script>
+</body>
+
+</html>

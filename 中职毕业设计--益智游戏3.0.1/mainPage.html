@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>GAME</title>
+		<link type="text/css" rel="stylesheet" href="gameContent/css/mainPage.css" />
+		<script src="gameContent/js/jQuery.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<header id="header">
+			<h2>The Website of Intelligent Game</h2>
+		</header>
+		<main id="main">
+			<main>
+				 <h2 id="show" onclick="test()">waiting for selection...<br/>点我有惊喜</h2>
+			</main>
+			<aside id="aside">
+				<div>CHOOSE ONE</div>
+				<ul id="ul">
+					<li onclick="select(0)">2048</li>
+					<li onclick="select(1)">迷宫</li>
+					<li onclick="select(2)">扫雷</li>
+					<li onclick="select(3)">华容道</li>
+				</ul>
+				<div id="submit" onclick="select(-1)">CONFIRM TO SELECT</div>
+			</aside>
+		</main>
+		<script src="gameContent/js/mainPage.js"></script>
+	</body>
+</html>
