@@ -1,154 +1,180 @@
-for (i = 0, a = new Array(); i < 5; a[i] = new Array(), i++);
-for (i = 1; i <= 4; i++) a[4][i - 1] = Math.floor(Math.random() * 20 % 4);
+for(i = 0,dataArray = []; i < 5; dataArray[i] = [], i++,console.log(dataArray));//创建存储数值的二维数组dataArray
+console.log(dataArray)
+for (let i = 0; i < 4; i++) dataArray[4][i] = Math.floor(Math.random() * 20 % 4);
 window.onload = function () {
-	for (i = 0; i < 16; i++) {
-		$("#box2048").append("<li></li>");
-		console.log("a")
-		// if (i % 4 == 0 && i != 0) $("#box2048").append("<br/>");
-	}
-	for (i = 0; i < 4; i += 2) document.querySelectorAll('li')[a[4][i] + (a[4][i + 1]) * 4].innerText = (Math.floor(
-		Math.random() *
-		10) % 2 + 1) * 2;
+	for (let i = 0; i < 16; i++)$("#box2048").append("<li></li>");
+	for (let i = 0; i < 4; i += 2) document.querySelectorAll('li')[dataArray[4][i] + (dataArray[4][i + 1]) * 4].innerText = (Math.floor(Math.random() *10) % 2 + 1) * 2;
 	// info = navigator.userAgent;
-	// isphone = /mobile/i.test(info);
-	// if (isphone) $("#MoveBottom2048").css("display", "block");
-	// if (!isphone) $("#MoveBottom2048").hide();
+	// isPhone = /mobile/i.test(info);
+	// if (isPhone) $("#MoveBottom2048").css("display", "block");
+	// if (!isPhone) $("#MoveBottom2048").hide();
 	pageChange()
 	insteadColour()
 }
+const objectColour={
+	"2":[198,202,185,.3],
+	"4":[186,188,170,.3],
+	"8":[173,164,155,.3],
+	"16":[161,150,140,.3],
+	"32":[148,136,125,.3],
+	"64":[136,122,110,.3],
+	"128":[123,108,95,.3],
+	"256":[111,94,80,.3],
+	"512":[98,80,65,.3],
+	"1024":[86,66,50,.3],
+	"":[86,66,50,.3]
+}
 function insteadColour() {
-	for (i = 0; i < 16; i++) a[Math.floor(i / 4)][i % 4] = document.querySelectorAll('li')[i].innerText;
-	for (i = 0; i < 16; i++) {
-		k = document.querySelectorAll('li')[i];
-		switch (k.innerText) {
-			case '2': k.style.backgroundColor = 'rgba(198,202,185,.3)'; break;
-			case '4': k.style.backgroundColor = 'rgba(186,188,170,.3)'; break;
-			case '8': k.style.backgroundColor = 'rgba(173,164,155,.3)'; break;
-			case '16': k.style.backgroundColor = 'rgba(161,150,140,.3)'; break;
-			case '32': k.style.backgroundColor = 'rgba(148,136,125,.3)'; break;
-			case '64': k.style.backgroundColor = 'rgba(136,122,110,.3)'; break;
-			case '128': k.style.backgroundColor = 'rgba(123,108,95,.3)'; break;
-			case '256': k.style.backgroundColor = 'rgba(111,94,80,.3)'; break;
-			case '512': k.style.backgroundColor = 'rgba(98,80,65,.3)'; break;
-			case '1024': k.style.backgroundColor = 'rgba(86,66,50,.3)'; break;
-			case '': k.style.backgroundColor = ''; break;
-		}
+	for (let i = 0; i < 16; i++) dataArray[Math.floor(i / 4)][i % 4] = document.querySelectorAll('li')[i].innerText;
+	for (let i = 0; i < 16; i++) {
+		chosenLi = document.querySelectorAll('li')[i];
+		for (let objectColourKey in objectColour)if(chosenLi.innerText===objectColourKey)for(let n=0; n<4; n++)chosenLi.style.backgroundColor='rgba('+objectColour[objectColourKey][0]+','+objectColour[objectColourKey][1]+','+objectColour[objectColourKey][2]+','+objectColour[objectColourKey][3]+')';
 	}
 }
 window.onkeyup = function (kn) {
-	switch (kn.keyCode) {
-		case 87: case 38: d(0); break;
-		case 83: case 40: d(1); break;
-		case 65: case 37: d(2); break;
-		case 68: case 39: d(3); break;
-	}
-}
-function text() {
-	var l = 0;
-	for (i = 0; i < 16; i++) {
-		if (document.querySelectorAll('li')[i].innerText == '') break;
-		else if (i == 15) {
-			for (j = 1; j < 4; j++) {
-				for (n = 0; n < 4; n++) {
-					if (a[n][j] == a[n][j - 1]) {
-						l = 1;
-						break;
-					} else if (n == 3 && j == 3) var p = 1;
-					if (a[j][n] == a[j - 1][n]) {
-						l = 1;
-						break;
-					} else if (n == 3 && j == 3 && p) p += 1;
-				}
-				if (l) break;
-			}
-			if (p == 2 && v) {
-				clearInterval(showDivOpen);
-				alert('you\' fail!');
-			}
-		}
+	console.log(dataArray);
+	console.log(kn.code)
+	switch (kn.code) {
+		case "KeyW": case "ArrowUp": direction(0); break;
+		case "KeyS":console.log(dataArray);  case "ArrowDown":
+			console.log(dataArray); direction(1); break;
+		case "KeyA": case "ArrowLeft": direction(2); break;
+		case "KeyD": case "ArrowRight": direction(3); break;
 	}
 }
 
-function d(e) {		//2024
+function direction(dir) {		//
 	v = 0;
-	switch (e) {
-		case 0:
-			for (m = 0; m < 3; m++)
-				for (i = 0; i <= 3; i++)
-					for (j = 1; j <= 3; j++) {
-						if (a[j - 1][i] == a[j][i] && a[j][i] != '') {
-							a[j - 1][i] *= 2;
-							a[j][i] = '';
+	isMove=false;
+	switch (dir) {
+		case 0://上
+			for (let m = 0; m < 3; m++)
+				for (let i = 0; i <= 3; i++)
+					for (let j = 1; j <= 3; j++) {
+						if (dataArray[j - 1][i] === '') {
+							dataArray[j - 1][i] = dataArray[j][i];
+							dataArray[j][i] = '';
 						}
-						if (a[j - 1][i] == '') {
-							a[j - 1][i] = a[j][i];
-							a[j][i] = '';
+						if (dataArray[j - 1][i] === dataArray[j][i] && dataArray[j][i] !== '') {
+							dataArray[j - 1][i] *= 2;
+							dataArray[j][i] = '';
+							isMove=!isMove;
+						}
+						if(j===3&&!isMove&&dataArray[1][i]===dataArray[2][i]){
+							dataArray[2][i] = '';
+							dataArray[1][i] *= 2;
 						}
 					}
 			break;
-		case 1:
+		case 1://下
 			for (m = 0; m < 3; m++)
 				for (i = 0; i <= 3; i++)
 					for (j = 0; j < 3; j++) {
-						if (a[j][i] == a[j + 1][i] && a[j][i] != '') {
-							a[j][i] = '';
-							a[j + 1][i] *= 2;
+						if (dataArray[j + 1][i] === '') {
+							dataArray[j + 1][i] = dataArray[j][i];
+							dataArray[j][i] = '';
 						}
-						if (a[j + 1][i] == '') {
-							a[j + 1][i] = a[j][i];
-							a[j][i] = '';
+						// if(dataArray[j][i]===dataArray[j-1][i]&&dataArray[j][i] !== '')
+						if (dataArray[j][i] === dataArray[j + 1][i] && dataArray[j][i] !== '') {
+						console.log((dataArray))
+							dataArray[j][i] = '';
+							dataArray[j + 1][i] *= 2;
+							isMove=!isMove;
+						}
+						if(j===2&&!isMove&&dataArray[1][i]===dataArray[2][i]){
+							dataArray[1][i] = '';
+							dataArray[2][i] *= 2;
 						}
 					}
 			break;
-		case 2:
+		case 2://左
 			for (m = 0; m < 3; m++)
 				for (i = 0; i <= 3; i++)
 					for (j = 1; j <= 3; j++) {
-						if (a[i][j] == a[i][j - 1] && a[i][j] != '') {
-							a[i][j - 1] *= 2;
-							a[i][j] = '';
+						if (dataArray[i][j - 1] === '') {
+							dataArray[i][j - 1] = dataArray[i][j];
+							dataArray[i][j] = '';
 						}
-						if (a[i][j - 1] === '') {
-							a[i][j - 1] = a[i][j];
-							a[i][j] = '';
+						if (dataArray[i][j] === dataArray[i][j - 1] && dataArray[i][j] !== '') {
+							dataArray[i][j - 1] *= 2;
+							dataArray[i][j] = '';
+							isMove=!isMove;
+						}
+						if(j===3&&!isMove&&dataArray[i][1]===dataArray[i][2]){
+							dataArray[i][2] = '';
+							dataArray[i][1] *= 2;
 						}
 					}
 			break;
-		case 3:
+		case 3://右
 			for (m = 0; m < 3; m++)
 				for (i = 0; i <= 3; i++)
 					for (j = 0; j < 3; j++) {
-						if (a[i][j] == a[i][j + 1] && a[i][j] != '') {
-							a[i][j] = '';
-							a[i][j + 1] *= 2;
+						if (dataArray[i][j + 1] === '') {
+							dataArray[i][j + 1] = dataArray[i][j];
+							dataArray[i][j] = ''
 						}
-						if (a[i][j + 1] == '') {
-							a[i][j + 1] = a[i][j];
-							a[i][j] = ''
+						if (dataArray[i][j] === dataArray[i][j + 1] && dataArray[i][j] !== '') {
+							dataArray[i][j] = '';
+							dataArray[i][j + 1] *= 2;
+							isMove=!isMove;
+						}
+						if(j===2&&!isMove&&dataArray[i][1]===dataArray[i][2]){
+							dataArray[i][1] = '';
+							dataArray[i][2] *= 2;
 						}
 					}
 			break;
 	}
 	for (i = 0, g = 0; i < 16; i++)
-		if (a[Math.floor(i / 4)][i % 4] == '') g++;
+		if (dataArray[Math.floor(i / 4)][i % 4] === '') g++;
 	h = g;
+	console.log(h)
 	if (g > 0) {
 		for (i = 0; i < 16; i++) {
-			if (a[Math.floor(i / 4)][i % 4] == '') {
+			if (dataArray[Math.floor(i / 4)][i % 4] === '') {
 				g--;
 			}
-			if (a[Math.floor(i / 4)][i % 4] == '' && g == Math.floor(h / 2)) {
-				a[Math.floor(i / 4)][i % 4] = (Math.floor(Math.random() * 10) % 2 + 1) * 2;
+			if (dataArray[Math.floor(i / 4)][i % 4] === '' && g === Math.floor(h / 2)) {
+				dataArray[Math.floor(i / 4)][i % 4] = (Math.floor(Math.random() * 10) % 2 + 1) * 2;
 				break;
 			}
 		}
 	}
-	for (i = 0; i < 16; i++) document.querySelectorAll('li')[i].innerText = a[Math.floor(i / 4)][i % 4];
+	for(i=0;i<4;i++)for(j=0;j<4;j++)if(dataArray[i][j]=="0")dataArray[i][j]=""
+	for (i = 0; i < 16; i++) document.querySelectorAll('li')[i].innerText = dataArray[Math.floor(i / 4)][i % 4];
 	v = 1;
 	insteadColour()
 	text()
 	showDivContentStep++;
 	if (!showDivOpenBoolean) showDivOpenBoolean = true;
+	isMove=false
+}
+
+function text() {
+	var l = 0;
+	for (i = 0; i < 16; i++) {
+		if (document.querySelectorAll('li')[i].innerText === '') break;
+		else if (i === 15) {
+			for (j = 1; j < 4; j++) {
+				for (n = 0; n < 4; n++) {
+					if (dataArray[n][j] === dataArray[n][j - 1]) {
+						l = 1;
+						break;
+					} else if (n === 3 && j === 3) var p = 1;
+					if (dataArray[j][n] === dataArray[j - 1][n]) {
+						l = 1;
+						break;
+					} else if (n === 3 && j === 3 && p) p += 1;
+				}
+				if (l) break;
+			}
+			if (p === 2 && v) {
+				clearInterval(showDivOpen);
+				alert('you fail!');
+			}
+		}
+	}
 }
 window.addEventListener('resize', pageChange)
 function pageChange() {//修改css样式
@@ -180,7 +206,7 @@ showDivOpen = setInterval(function () {
 		showDiv.eq(1).text(showDivContentStep + "step(s)");
 		showDivContentSec++;
 		showDivContentSec.toFixed(1)
-		if (showDivContentSec == 60) {
+		if (showDivContentSec === 60) {
 			showDivContentSec = 0;
 			showDivContentMin++;
 		}

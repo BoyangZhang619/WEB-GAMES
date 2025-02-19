@@ -1,17 +1,6 @@
 // A=[];B=15;for(i=0;i<16;i++){if(!i%4)$("#a").append("<ul></ul>");C=Math.ceil(Math.random()*15);if(i!=B){for(j=0;j<A.length;j++)if(C==A[j]||C==A[0]){C=Math.ceil(Math.random()*15);j=0}A.push(C);$("ul:last").append("<li id='.|"+i+"|"+Math.ceil((i+1)/4)+"|"+(Math.ceil(i%4)+1)+"'>"+C+"</li>")}if(i==B)$("ul:last").append("<li id='.\|"+B+"\|"+Math.ceil((B+1)/4)+"\|"+(Math.ceil(B%4)+1)+"'>&nbsp;</li>")}G=$("li");$("li[id^='.|"+B+"']").attr("class","a");$("li:not([id~='.|"+B+"'])").click(function(){var F=this.id.split("|");var D=a(F[2],F[3]);if(!D)return false;b(D);G.removeClass("a");$("li[id^='.\|"+B+"\|']").addClass("a");for(i=1;i<=15;i++){if(G[i-1].innerText!=i)break;if(i==15)alert("WIN")}});function a(a,b){for(i=0;i<16;i++){if(G[i].id.startsWith(".\|"+B+"\|")){var E=G[i].id.split("|");break}}if(b!=E[3]&&a!=E[2])return false;else if(a==E[2]){return ["x",b-E[3],+E[2],+E[3]]}else if(b==E[3]){return ["y",a-E[2],+E[2],+E[3]]}}function b(a){for(i=1;i<=Math.abs(a[1]);i++){if(a[0]=="x"){if(a[1]>0)c(i-2,0,1,0,-1,a);if(a[1]<0)c(-i,0,-1,0,+1,a)}if(a[0]=="y"){if(a[1]>0)c(i-2,3*i-3,4,-1,0,a);if(a[1]<0)c(-i,3-3*i,-4,1,0,a)}}}function c(a,b,c,d,e,f){var g=(f[2]-1)*4+f[3]+a+b;for(j=1;j<=3;j++)f.push(+G[g+c].id.split("|")[j]);G[g].innerText=G[g+c].innerText;G[g].id=".\|"+f[4]+"\|"+(f[5]+d)+"\|"+(f[6]+e);G[g+c].innerHTML='&nbsp;';G[g+c].id=".\|"+B+"\|"+f[5]+"\|"+f[6];for(j=0;j<3;f.pop(),j++);}
 //上述代码为压缩版
-
-
-
-
-
 //Because of the former command that i`m difficult to digest :(   所以下面代码的“格式化”与“注释”全部由AI完成，而代码本体由我本人完成，不含有AI参杂（一个是AI写不了逻辑性太复杂的东西，一个是我的命名，我的命名是这样是因为我想看我可以把代码压到多小，然后开始的就被替了[不过我觉得压过的代码更...高级？]）
-    
-
-
-
-
-
 
 A = [];// 初始化一个空数组A，用于存储已生成的拼图编号  
 B = 15;// 设置变量B为15，表示空格（空位）的索引
